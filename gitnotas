@@ -1,0 +1,323 @@
+Notas hmtl curso
+¿como saber si una pagina es html5?
+	<!DOCTYPE hmtl>
+
+
+herramientas para comprimir y descomprimir codigo html y javascrip de un navegador
+
+	http://herramientas-online.com/comprimir-descomprimir-css.html
+	http://herramientas-online.com/comprimir-descomprimir-javascript.html
+
+clase 12 estructura html
+<etiqueta atributo="valor" atributo="valor" atributo="valor">
+	contenido
+</etiqueta>
+
+<p id="primer" class="grande">
+	hola mundo!
+</p>
+
+<etiqueta/>
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+css: hojas de estilos en cascada
+
+elemento html ejemplo (deben ir dentro del body los elementos)
+elemento{
+	//atributos
+
+	propiedad : valor ;
+	propiedad : valor ;
+	propiedad : valor ;
+
+}
+
+normalize: es un estandard para los css  regulan todo los estilos por ejemplo widt sea 100%
+
+modernizr: ayuda a que sea compatible tus funciones nuevas js, estilos etc. con versiones viejas de navegadores
+
+prefijos: atributos css para que funcionen en algunos navegadores es necesario que se especifiquen y funcionen los estilos
+
+caniuse.com -> una pagina que sirve para decirnos que funciones css funcionan en que explorador y que versión
+
+teclas ctrl+F9 ordena las propiedades y atributo de css en orden alfabetico
+
+En google podemos buscar tabals de colores web  
+
+RGB colores van 0 a 255 (RED, GREEN, BLUE)
+
+modelo de caja css:  padding borde interno hacia dentro y puede tener un borde(puede tener un background), margin separa el elemento con los del alrededor
+
+padding:quiero cambiar el objeto consigo mismo
+margin: las separaciones entre elementos se hacen por margin
+
+positions: en que punto se mostrare el elemento html
+/////////////////////////////////////////////////////////////////////////
+
+ctrl+shift+l -> sublime para selecciona lo ultimo de una lista de elementos 
+
+///////////////////////////////////////////////////////7
+notas sublime
+
+
+ctrl+MAYUS+C -> abre el color picker
+-
+etiqueta    + TAB -> div + tab
+-
+padre > hijo > nieto  +tab ->  div>article+section +tab
+
+<div>
+	<article></<article>
+	<section></section>
+</div
+-
+article>div>(img)+div +TAB ->  article>div>(img)+div+tab
+<article>
+	<div>
+		<img src="" alt="">
+		<div></div>
+	</div>
+</article>		
+
+-
+article>(div>img)+div  +TAB -> article>(div>img)+div  +TAB ->
+
+<article>
+	<div><img src="" alt=""></div>
+	</div></div>
+</article>
+
+-
+
+
+atajos css
+
+
+-
+
+#identificador + tab
+#nombre + tab
+
+<div id="nombre"></div>
+
+p#identificador + tab 
+
+<p id="identificador"></p>
+-
+.clase +tab
+
+h1.letraroja + tab
+
+
+<h1 class="letraroja"></h1>
+
+div.letraroja.principal.random + tab
+
+<div class="letraroja principal random"> </div>
+-
+
+#identificador.clase + tab
+p#identificador.clase +tab
+
+<p id="identificador" class="clase"></p>
+
+-
+
+nav>ul>li#opt$*4 +tab
+
+<nav>
+	<ul>
+		<li id="opt1"></li>
+		<li id="opt2"></li>
+		<li id="opt3"></li>
+		<li id="opt4"></li>
+	</ul>
+	
+
+</nav>
+
+-
+etiqueta{contenido} +tab
+a{click aqui}+ tab 
+<a href=""> click aki </a>
+
+-
+
+etiqueta[atr=valor] +  tab
+
+p[title=noticia] +tab
+
+<p tittle="noticia" > </p>
+- 
+
+Ctrl +  F9 ordena alfabeticamente
+CTRL + N  nueva pestaña
+
+CTRL + W cierra pestaña
+
+ctr + click+ click  -> podemos seleccionar simultaneamente y escribir en varias lineas
+
+ctrl +shift+ flecha -> podemos mover lo seleccionado a donde queremos
+
+layouts -> en el menu  View -> layout podemos poner como visualizar el sublimetext a dos pestañas normal  etc...
+
+
+
+//////////////////////////////////////////////////7
+
+GIT
+
+-Sistema de control de versiones
+
+GITHUB: ES UNA DE LAS PLTAFORMAS PARA ORGANIZAR, COLGAR, DISTRIBUIR Y TABAJAR CON GIT
+
+GIT: Herramiento (software) que tenemos en nuestro ordenador mantener un historico de las versiones de nuestros programas en nuestro ordenador
+
+
+GITHUB
+
+PESTAÑAS:
+
+- Code: se ve el codigo fuente del proyecto tambien se puede visualizar las personas que haan modificado el codigo
+- issues: los usuarios de la aplicación reporten errores del codigo o proyecto.
+
+Tutorial 
+
+Bajar github desktop es una interfaz grafica  pra un mejor uso de GIT
+
+https://desktop.github.com/
+
+
+1)crear un proyecto con github.com
+
++ :  -> new repository
+
+
+2) clonar el repositorio en nuestro ordenador
+pasamos URL
+verde: es la línea metida 
+rojo: es línea quitada
+
+3) para los commit en la pestaña de changes tenemos dos campos (github desktop):
+Summary: Resumen de lo que hemos hecho en el commit (obligatorio)
+Description:Ma´s datos
+
+4) subir los cambios a github -> boton sync (fetch origin) (github desktop)
+
+
+Ramificación: crear cambios en paralelo
+crear ramificaciones en github desktop pestaña Branch ->
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+GIT
+
+utils comandos
+	git branch <branchname> -> crear nuevo branch
+	git checkout -b [yourbranchname]  -> crea un nuevo branch y te cambia a esa rama
+
+https://backlogtool.com/git-guide/en/stepup/stepup1_4.html
+lista de archivos modificados
+	git status -> lista de modificaciones
+
+clonar repositorio
+	git clone git://github.com/schacon/grit.git
+
+lista de diferencias o lo que se ha cambiado	
+	git diff
+
+cambiar de rama 
+	git checkout <rama>
+ 
+ ver las ramas disponibles
+ 	git branch -r
+ 	git branch -rv		
+
+subir componentes 
+	primero si hay comps. nuevos se tienen que añadircon el siguiente comando, los modificados por default estan preparados para ser añadidos
+	git add -A
+	git add .
+
+ commit componentes (el -a no es necesario si ya se realizo en el paso anterior)
+
+ 	git commit -a -m "se corrigio"	
+
+	
+	trae tood  lode la rama 
+	
+	git reset --hard origin/development
+
+ push despues del commit 
+ 	git push origin <branch al que se va a subir>	
+
+simula todo lo que se va a subir (ves la lista de componentes)
+ git add -n -A
+
+
+ para retornar un componente
+ 	git	checkout -- <Ruta componente>
+
+
+ para realmente borrar un archivo 	
+ git rm
+
+
+ para deshacer un commit
+ git reset --soft HEAD~1
+
+
+ para evitar subir componentes 
+ 					<ruta componente>
+  git checkout -- TraspasosDocumentCreatorEAR/META-INF/application.xml
+
+para retornar un componente
+	git reset pom.xml -> ruta del componente
+	git checkout pom.xml  -> ruta del componente
+	
+
+  para actualizar la rama  (update)
+  	git pull origin <branch al que se va a actualizar)
+
+
+  crear Ramas GIT
+ 	 git branch <nombre de la rama>	
+
+  ver historial de commit
+	  git log
+	  git log --decorate  -> da mas detalles del log
+	  git log --graph --decorate --oneline  --all  -> nos da mas detalle
+	  
+	  
+	  por si perdemos un componente lo podemos recuperar
+	  git checkout -- .
+	  
+
+para pasar contenido de una rama a master	
+	git merge  <branch nombre que va a master>
+
+fusiones con conflictos rama a master 
+	 ya que realizamos los cambios nos cambiamos a la rama maestra
+	 	git checkout master
+	 	git merge  carcteristica-nueva -> rama que se va incorporar al master
+
+	 	se va a generar un conflicto en los componentes, por lo que se arrglaran lo errores manualmente
+	 	agregamos nuevamente el componente modificado git add <nombre_archivo>
+	 	git commit y listo
+
+
+
+Eliminar ramas con git (-d git comprueba que no avayas a perder tu trabajo es decir los commits de la rama esten en master
+						 -D git borra a fuerzas la rama)
+	git branch -d <nombre_rama>
+
+
+Elimianr basura
+	git gc
+	
+git remote update origin --prune
+
+
+revert a un punto
+ git checkout 025946e6682980fc86c6347739e1cc986f08f7d0 .
