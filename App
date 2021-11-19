@@ -1,0 +1,13 @@
+@SpringBootApplication
+@ComponentScan("mx.isban.login")
+public class LoginMgmtServiceApplication {
+	/**
+	 * Método que inicia los servicios rest del proyecto de recuperaciones.
+	 * 
+	 * @param args args
+	 */
+	public static void main(String[] args) {
+		SpringApplication.run(LoginMgmtServiceApplication.class, args);
+	}
+
+}
