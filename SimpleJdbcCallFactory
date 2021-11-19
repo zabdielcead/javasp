@@ -1,0 +1,24 @@
+package mx.com.santander.clicktosell.configuration;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Component;
+
+/**
+ * Componente para definir un Factore de SimpleJdbcCall
+ * 
+ * @author C044349
+ *
+ */
+@Component
+public class SimpleJdbcCallFactory {
+	/**
+	 * Método para la creación de SimpleJdbcCall
+	 * 
+	 * @param template Template de conexión a BD
+	 * @return {@link SimpleJdbcCall}
+	 */
+	public SimpleJdbcCall create(JdbcTemplate template) {
+		return new SimpleJdbcCall(template);
+	}
+}
