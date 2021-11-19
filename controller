@@ -1,0 +1,231 @@
+package mx.isban.login.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ws.soap.client.SoapFaultClientException;
+
+import mx.isban.login.commons.LoginMgmtSerCommon;
+import mx.isban.login.dao.IRedisDAO;
+import mx.isban.login.model.ConsultaUsuarioTO;
+import mx.isban.login.model.InputCredentialTO;
+import mx.isban.login.model.InputUserLocalID;
+import mx.isban.login.model.LoginTO;
+import mx.isban.login.model.OutputCorporateUserTO;
+import mx.isban.login.model.OutputCredentialTO;
+import mx.isban.login.model.RespConsultaUsuario;
+import mx.isban.login.model.ResponseError;
+import mx.isban.login.model.SecureLoginTO;
+import mx.isban.login.model.redis.LoginRedisTO;
+import mx.isban.login.model.tokenopaco.ReqGenToken;
+import mx.isban.login.model.tokenopaco.ReqHeaderGenToken;
+import mx.isban.login.model.tokenopaco.ReqValToken;
+import mx.isban.login.model.tokenopaco.ResGenToken;
+import mx.isban.login.service.IConsultaUsuarioService;
+import mx.isban.login.service.IFacSegService;
+import mx.isban.login.service.IResolverService;
+import mx.isban.login.service.ISecurityService;
+import mx.isban.login.service.ITokenService;
+
+
+
+@RestController
+@RequestMapping(LoginMgmtSerCommon.BASE_LOGIN_ENDPOINT)
+public class SecurityController {
+	private static final Logger LOG = LoggerFactory.getLogger(SecurityController.class);
+	
+	
+	
+
+//	@Autowired
+//	private ITokenService tokenService;
+//	
+//	@Autowired
+//	private IResolverService resolverService;
+//
+//	@Autowired
+//	private IFacSegService facSegService;
+//
+//	@Autowired
+//	private IConsultaUsuarioService consultaUsuarioService;
+//	
+//	
+	
+	
+//	@CrossOrigin(origins = "*")
+//	@PostMapping(value = "/gentoken")
+//	public ResponseEntity<ResGenToken> gentoken(@RequestBody ReqGenToken input)
+//			throws IOException {
+//		LOG.info("inicia.resolverService");
+//
+//
+//		
+//		if(profile.equals("dev") || profile.equals("pre") ) {
+//			
+//			LoginMgmtSerCommon.authenticateWS("toneocc.jks");
+//		}
+//		
+//		
+//		//ReqHeaderGenToken reqHeader = new ReqHeaderGenToken(xIbmClientId, auth, msgRqHdr);
+//		ResGenToken resGenToken = null;
+//		ReqHeaderGenToken reqHeader =tokenService.genTokenSecure();
+//		
+//		
+//		
+//		resGenToken = tokenService.genToken(input, reqHeader);
+//		
+//		
+//		
+//		return new ResponseEntity<ResGenToken>(resGenToken, HttpStatus.OK);
+//	}
+//	
+//	
+//	@CrossOrigin(origins = "*")
+//	@PostMapping(value = "/validToken")
+//	public ResponseEntity<LoginTO> validToken(@RequestBody ReqValToken input)
+//			throws IOException {
+//		LOG.info("inicia.resolverService");
+//
+//
+//		
+//			if(profile.equals("dev") || profile.equals("pre") ) {
+//					
+//				LoginMgmtSerCommon.authenticateWS("toneocc.jks");
+//			}
+//			
+//			
+//			ReqHeaderGenToken reqHeader =tokenService.genTokenSecure();
+//			LoginTO resvalToken = null;
+//			
+//			resvalToken = tokenService.validTokenLogin(input, reqHeader);
+//			
+//			
+//			
+//			return new ResponseEntity<LoginTO>(resvalToken, HttpStatus.OK);
+//			
+//		}
+//	
+//	
+//
+//	@CrossOrigin(origins = "*")
+//	@PostMapping(value = LoginMgmtSerCommon.LOGIN_RESOLVER_ENDPOINT)
+//	public ResponseEntity<OutputCorporateUserTO> resolverService(@RequestBody InputUserLocalID input)
+//			throws IOException {
+//		LOG.info("inicia.resolverService");
+//
+//		LoginMgmtSerCommon.authenticateWS("wsresolver.jks");
+//		return new ResponseEntity<OutputCorporateUserTO>(resolverService.getLocalUserFromCorpID(input), HttpStatus.OK);
+//	}
+//
+//	@CrossOrigin(origins = "*")
+//	@PostMapping(value = LoginMgmtSerCommon.LOGIN_GET_CREDENTIALS)
+//	public ResponseEntity<OutputCredentialTO> facseg(@RequestBody InputCredentialTO input,
+//			HttpServletRequest requestServlet) throws IOException {
+//		LOG.info("inicia.resolverService");
+//
+//		LoginMgmtSerCommon.authenticateWS("wsresolver.jks");
+//		input.setIpAddressClient(requestServlet.getRemoteAddr());
+//		return new ResponseEntity<OutputCredentialTO>(facSegService.getCredentialSeguridad(input), HttpStatus.OK);
+//	}
+//
+//	@CrossOrigin(origins = "*")
+//	@PostMapping(value = LoginMgmtSerCommon.LOGIN_CONSULTA_USER_DATA)
+//	public ResponseEntity<RespConsultaUsuario> facseg(@RequestBody InputCredentialTO input) throws IOException {
+//		LOG.info("inicia.resolverService");
+//
+//		return new ResponseEntity<RespConsultaUsuario >(
+//				consultaUsuarioService.consultaUsuarioData(input.getUsarioAplicativo()), HttpStatus.OK);
+//	}
+	
+	
+	
+	@Autowired
+	private ISecurityService secService;
+	
+	
+	
+	@Autowired
+	private IRedisDAO redisDAO;
+	
+	@Value("${profile}")
+	private String profile;
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = LoginMgmtSerCommon.LOGIN_CONSULTA_USERCRM)
+	public ResponseEntity<SecureLoginTO> consultaUser(@RequestBody LoginTO input, HttpServletRequest requestServlet)
+	//		throws  IllegalArgumentException, SoapFaultClientException 
+	throws IOException
+	{
+		LOG.info("-> inicia.consultaUser_login");
+		
+		
+		if(profile.equals("dev") || profile.equals("pre") ) {
+			
+			LoginMgmtSerCommon.authenticateWS("wsresolver.jks");
+		}
+		
+		SecureLoginTO dto = secService.getLoginData(input, requestServlet);
+		LoginRedisTO redisdto = new LoginRedisTO();
+		redisdto.setIdUsuario(dto.getDataUser().getIdUsuario());
+		redisdto.setUsuarioLogueo(dto.getDataUser().getUsuarioLogueo());
+		redisdto.setUsuarioCRM(input.getUserCrm());
+		
+		
+		
+		String cookieRedis = redisDAO.save(redisdto);
+		
+		LOG.info("-> cookie redis="+cookieRedis);
+		
+		
+		
+		
+		ResponseCookie resCookie = ResponseCookie.from(LoginMgmtSerCommon.COOKIE_NAME, cookieRedis)
+	            .httpOnly(true)
+	            //.secure(true)
+	            .path("/")
+	            .maxAge(120)	            
+	            .build();
+		
+		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, resCookie.toString()).body(dto);
+		
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = LoginMgmtSerCommon.LOGIN_VALIDA_COOKIE)
+	public ResponseEntity<ResponseError> consultaCookie(@CookieValue(name = LoginMgmtSerCommon.COOKIE_NAME) String cookieName){
+		ResponseError respError = new ResponseError();
+		LOG.info("-> inicia.consulta cookie="+cookieName);
+		LoginRedisTO dtoRedis = redisDAO.findById(cookieName);
+		
+		if(dtoRedis != null) {
+			respError.setStatusError("OK");
+			respError.setMensajeError("USUARIO VALIDO");
+		}else {
+			respError.setStatusError("NOK");
+			respError.setMensajeError("USUARIO NO VALIDO");
+		}
+		
+		
+		
+		return new ResponseEntity<ResponseError >(respError, HttpStatus.OK);
+		
+	}
+}
